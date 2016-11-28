@@ -1,1 +1,5 @@
 **/.DS_Store
+private/bin/raw128maximize
+private/bin/raw2evolver
+private/bin/wav2evolver
+private/bin/wav2raw128
