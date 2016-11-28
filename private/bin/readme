@@ -1,0 +1,2 @@
+This directory is for binary programs. Compile the C files in private/source.
+See the private/source/compile shell script for suggestions on how to do this.
