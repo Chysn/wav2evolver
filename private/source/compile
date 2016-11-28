@@ -1,0 +1,16 @@
+#!/bin/bash
+
+rm -f ../bin/wav2evolver
+rm -f ../bin/wav2raw128
+rm -f ../bin/raw2evolver
+rm -f ../bin/raw128maximize
+
+gcc -o ../bin/wav2evolver ./wav2evolver.c
+gcc -o ../bin/wav2raw128 ./wav2raw128.c
+gcc -o ../bin/raw2evolver ./raw2evolver.c
+gcc -o ../bin/raw128maximize ./raw128maximize.c
+
+chmod 755 ../bin/wav2evolver
+chmod 755 ../bin/wav2raw128
+chmod 755 ../bin/raw2evolver
+chmod 755 ../bin/raw128maximize

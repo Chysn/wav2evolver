@@ -1,0 +1,90 @@
+@CHARSET "UTF-8";
+
+BODY {
+	background-color: #cfd078;
+}
+
+TEXTAREA {
+	resize: none;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=50);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+.separated {
+	margin-top: 10px;
+}
+
+#current_waveform_name {
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+IFRAME#upload_frame {display: none;}
+
+TABLE#canvas {
+	margin: 0 auto;
+	cursor: crosshair;
+}
+TABLE#canvas TD {
+	height: 1px;
+	width: 5px;
+}
+TABLE#canvas TD.zero_line {
+	background-color: #faa;
+}
+TABLE#canvas TD.on {
+	background-color: #079b0a;
+}
+
+#editor_container {
+	background-color: #ddd;
+	padding: 10px 0px;
+	border-radius: 5px;
+}
+
+TABLE TD.align_right {
+	text-align: right;
+}
+TABLE TD.align_right .btn {
+	margin-left: 5px;
+}
+
+#player {dislay: none;}
+
+#wave_thumb {
+	height: 70px;
+}
+.thumb_dot {
+	color: #079b0a;
+}
+
+#draw_state_indicator {
+	width: 40px;
+	display: none;
+	float: right;
+	margin-top: -20px;
+}
