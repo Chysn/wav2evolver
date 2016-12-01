@@ -1,7 +1,11 @@
 <?php
 session_start();
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require '../../private/IO.php';
+require '../../private/custom_json.php';
 
 $job = IO::get('job');
 
@@ -50,7 +54,8 @@ switch ($job)
 		break;
 }
 
-print json_encode($data);
+print custom_json::encode($data);
+//print json_encode($data);
 exit;
 
 function getSharedList()
@@ -224,7 +229,7 @@ function effect_Maximize()
 	{
 		$hex .= '\x' . dechex(ord(substr($pcm, $i, 1)));
 	}
-	$cmd = "echo '{$hex}' | ../../private/bin/raw128maximize 2>&1";
+	$cmd = "echo -n -e '{$hex}' | ../../private/bin/raw128maximize 2>&1";
 	$pcm = shell_exec($cmd);
 
 	$name = getEditedName();
