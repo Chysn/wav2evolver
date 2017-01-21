@@ -49,7 +49,7 @@ class IO
 		} else {
 			$db = mysqli_connect(CONFIG_HOSTNAME, CONFIG_USERNAME, CONFIG_PASSWORD, CONFIG_DATABASE);
 			if (!$db) {
-			    throw new Exception("Cannot connect to {$db_name}");
+			    throw new Exception('Cannot connect');
 		    }
 			return $db;
 		}
