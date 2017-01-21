@@ -48,6 +48,9 @@ class IO
 			return IO::$db;
 		} else {
 			$db = mysqli_connect(CONFIG_HOSTNAME, CONFIG_USERNAME, CONFIG_PASSWORD, CONFIG_DATABASE);
+			if (!$db) {
+			    throw new Exception("Cannot connect to {$db_name}");
+		    }
 			return $db;
 		}
 	}	
@@ -56,6 +59,9 @@ class IO
 	{
 		$db = IO::connect();
 		$res = $db->query($sql);
+		if (!$res) {
+			throw new Exception(mysqli_error($db));
+		}
 		return $res;
 	}
 	
