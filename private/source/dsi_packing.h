@@ -31,8 +31,8 @@
  * your code.
  */
 typedef struct _DSIVoiceData {
-	int size;
-	unsigned int data[DSI_VOICE_DATA_MAX];
+    int size;
+    unsigned int data[DSI_VOICE_DATA_MAX];
 } DSIVoiceData, UnpackedVoice, PackedVoice;
 
 /* Function declarations */
@@ -108,11 +108,8 @@ PackedVoice pack_voice(UnpackedVoice unpacked)
     {
         c = unpacked.data[ixu];
         if (pos == 7) {
-        	data[size++] = packbyte;
-            for (i = 0; i < pos; i++)
-            {
-            	data[size++] = packet[i];
-            }
+            data[size++] = packbyte;
+            for (i = 0; i < pos; i++) data[size++] = packet[i];
             packbyte = 0;
             pos = 0;
         }
@@ -120,8 +117,7 @@ PackedVoice pack_voice(UnpackedVoice unpacked)
             packbyte += (1 << pos);
             c &= 0x7f;
         }
-        packet[pos] = c;
-        pos++;
+        packet[pos++] = c;
         if ((size + 8) > DSI_VOICE_DATA_MAX) break;
     }
     data[size++] = packbyte;
@@ -133,7 +129,7 @@ PackedVoice pack_voice(UnpackedVoice unpacked)
 
 
 /*
- * Update an UnpackedVoice or a PackedVoice with the size and data array.
+ * Updates an UnpackedVoice or a PackedVoice with the size and data array.
  *
  * If this was object-oriented code, this would be part of the constructor.  But since this is C,
  * and DSIVoiceData is a struct instead of a class, populating it is a two-step process.  If you
@@ -148,21 +144,21 @@ PackedVoice pack_voice(UnpackedVoice unpacked)
  */
 void set_voice_data(DSIVoiceData *voice, int size, unsigned int data[])
 {
-	voice->size = size;
-	int i;
-	for (i = 0; i <  size; i++) voice->data[i] = data[i];
+    voice->size = size;
+    int i;
+    for (i = 0; i <  size; i++) voice->data[i] = data[i];
 }
 
 
 /*
- * Send the voice data to standard output.  The data may be either packed or unpacked.  If 
+ * Sends the voice data to standard output.  The data may be either packed or unpacked.  If 
  * it's packed, it can be used to create a system exclusive file.  Note that this is only the
  * parameter data and not the system exclusive header.
  */
 void dump_voice(DSIVoiceData voice)
 {
-	int i;
-	for (i = 0; i < voice.size; i++) putchar(voice.data[i]);
+    int i;
+    for (i = 0; i < voice.size; i++) putchar(voice.data[i]);
 }
 
 #endif /* DSI_PACKING_H_ */
