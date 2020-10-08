@@ -160,6 +160,7 @@
           <div class="btn-group btn-group-justified" role="group" aria-label="options">	  
 			  <a disabled href="#" class="btn btn-primary wavoption wavoption-share" data-toggle="modal" data-target="#share_wave"><span class="glyphicon glyphicon-share-alt"></span> Share</a>
               <a disabled href="#" class="btn btn-primary wavoption" data-toggle="modal" data-target="#evolver_send"><span class="glyphicon glyphicon-download"></span> Evolver</a>
+              <a disabled href="#" class="btn btn-primary wavoption" data-toggle="modal" data-target="#pro3_send"><span class="glyphicon glyphicon-download"></span> Pro 3</a>
 			  <a disabled href="services/download.php?type=raw" target="_blank" class="btn btn-primary wavoption"><span class="glyphicon glyphicon-download"></span> RAW</a>
 			  <a disabled href="services/download.php?type=wav" target="_blank" class="btn btn-primary wavoption"><span class="glyphicon glyphicon-download"></span> WAV</a>
 
@@ -331,7 +332,7 @@
         <h4 class="modal-title">Evolver Waveform Download</h4>
       </div>
       <div class="modal-body">
-        <input type="hidden" name="type" value="syx">
+        <input type="hidden" name="type" value="evolver_syx">
 
 	  <div class="form-group">
     	<label for="waveform_number">Evolver Waveform Number</label>
@@ -342,6 +343,38 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Download Waveform</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+  </form>
+</div><!-- /.modal -->
+
+<div class="modal fade" id="pro3_send">
+  <form id="evolver_download_form" action="services/download.php" onsubmit="$('#pro3_send').modal('hide')" method="get" target="_blank" data-toggle="validator" role="form">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Pro3 Wavetable Download</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="type" value="pro3_syx">
+
+	  <div class="form-group">
+    	<label for="wavetable_number">Wavetable Name</label>
+		  <input type="text" id="wavetable_name" class="form-control" name="wavetable_name" aria-describedby="basic-addon1">
+  	  </div>
+
+
+	  <div class="form-group">
+    	<label for="wavetable_number">Pro3 Wavetable Number</label>
+		  <input type="number" min="33" max="64" required id="wavetable_number" class="form-control" placeholder="33-64" name="number" aria-describedby="basic-addon1">
+  	  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Download Wavetable</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

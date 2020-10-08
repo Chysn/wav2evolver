@@ -22,7 +22,7 @@
 #ifndef DSI_PACKING_H_
 #include <stdio.h>
 #define DSI_PACKING_H_
-#define DSI_VOICE_DATA_MAX 1024
+#define DSI_VOICE_DATA_MAX 128000
 
 /*
  * DSIVoiceData is a sort of generic data structure, containing a size, and a fixed-length

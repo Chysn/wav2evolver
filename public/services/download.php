@@ -33,7 +33,7 @@ if ($type == 'wav') {
 	$name .= ".{$type}";
 }
 
-if ($type == 'syx') {
+if ($type == 'evolver_syx') {
 	$number = IO::getInt('number');
 	if ($number > 128 or $number < 97) {$number = 128;}
 	$name .= "-{$number}.syx";
@@ -47,6 +47,33 @@ if ($type == 'syx') {
 	$cmd = "echo -en '{$hex}' | ../../private/bin/raw2evolver {$number}";
 	$output = shell_exec($cmd);
 	$len = 300;
+}
+
+if ($type == 'pro3_syx') {
+    $number = IO::getInt('number');
+    if ($number > 64 or $number < 33) {$number = 64;}
+    $name .= "-pro3-{$number}.syx";
+    
+    // Override name with specified wavetable name
+    $wavetable_name = IO::get('wavetable_name');
+    $wavetable_name = str_replace(' ', '_', $wavetable_name);
+    $wavetable_name = preg_replace('/\..+$/', '', $wavetable_name);
+    $wavetable_name = preg_replace('/[^A-Za-z0-9_]/', '', $wavetable_name);
+    $wavetable_name = preg_replace('/__+/', '_', $wavetable_name);
+    if (!$wavetable_name) {$wavetable_name = $name;}
+    $wavetable_name = substr($wavetable_name, 0, 8);
+    $wavetable_name = str_pad($wavetable_name, 8, ' ', STR_PAD_RIGHT);
+    
+    $hex = '';
+    for ($i = 0; $i < 256; $i++)
+    {
+        $byte = substr($wave, $i, 1);
+        $h = dechex(ord($byte));
+        $hex .= '\x' . $h;
+    }
+    $cmd = "echo -en '{$hex}' | ../../private/bin/raw2pro3 '{$wavetable_name}' {$number}";
+    $output = shell_exec($cmd);
+    $len = 112368;
 }
 
 if ($output and strlen($output) == $len) {

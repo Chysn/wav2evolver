@@ -253,7 +253,10 @@
                         pcm_index_t nx = (dx + pcm->channels); /* Next index for same channel */
                         expanded_data[ex++] = data[dx];
                         if (nx < (data_size * pcm->channels)) {
-                            expanded_data[ex++] = (data[dx] + data[nx]) / 2;
+                            int16_t dx_v = (int16_t) data[dx];
+                            int16_t nx_v = (int16_t) data[nx];
+                            expanded_data[ex++] = (dx_v / 2) + (nx_v / 2);
+                            //printf("%lu: %d -- %d = %d\n", i, data[dx], data[nx], expanded_data[ex-1]);
                         }
                     }
                 }
