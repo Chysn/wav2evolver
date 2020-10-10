@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
     unsigned int pro3_data[PCM_MAX];
     unsigned long int i; /* i is the index within the PCM data */
     unsigned long int dx = 0; /* dx is the index within the evolver data */    
+    uint16_t checksum = 0;
     
 	int k;
     for (k = 0; k < 16; k++)
@@ -59,6 +60,8 @@ int main(int argc, char *argv[])
 	        /* Convert the signed 16-bit sample into a high and low byte */
 	        pro3_data[dx++] = (sample) >> 8; /* High byte */
 	        pro3_data[dx++] = (sample) & 0xff; /* Low byte */
+	        uint16_t check = (((uint16_t) sample >> 8) | ((uint16_t) sample << 8));
+	        checksum += check;
 	    }	    
 	    
 	    /* Downsample to a 512-word waveform */
@@ -68,6 +71,8 @@ int main(int argc, char *argv[])
 	    	int16_t sample = (int16_t)pcm.data[i];
 	        pro3_data[dx++] = (sample) >> 8; /* High byte */
 	        pro3_data[dx++] = (sample) & 0xff; /* Low byte */
+	        uint16_t check = (((uint16_t) sample >> 8) | ((uint16_t) sample << 8));
+	        checksum += check;
 	    }
 	    
 	    /* Downsample to a 256-word waveform and add it twice */
@@ -80,6 +85,8 @@ int main(int argc, char *argv[])
 		    	int16_t sample = (int16_t)pcm.data[i];
 		        pro3_data[dx++] = (sample) >> 8; /* High byte */
 		        pro3_data[dx++] = (sample) & 0xff; /* Low byte */
+	            uint16_t check = (((uint16_t) sample >> 8) | ((uint16_t) sample << 8));
+	            checksum += check;
 		    }
 		}
 	    
@@ -92,13 +99,12 @@ int main(int argc, char *argv[])
 		    	int16_t sample = (int16_t)pcm.data[i];
 		        pro3_data[dx++] = (sample) >> 8; /* High byte */
 		        pro3_data[dx++] = (sample) & 0xff; /* Low byte */
+    	        uint16_t check = (((uint16_t) sample >> 8) | ((uint16_t) sample << 8));
+	            checksum += check;
 		    }
 		}		
 	}
 	
-	pro3_data[dx++] = pro3_data[0];
-	pro3_data[dx++] = pro3_data[1];
-	    
     /* Use dsi_packing tools to convert the sample data into DSI's packed format */
     UnpackedVoice pro3_wavetable;
     set_voice_data(&pro3_wavetable, dx, pro3_data);
@@ -116,6 +122,8 @@ int main(int argc, char *argv[])
     for (i = 0; i < 8; i++) putchar(argv[1][i]); /* Wavetable name */
     putchar(0x00);
     dump_voice(pro3_sysex);
+    putchar((char) (checksum & 0x7f));
+    putchar((char) (checksum >> 8) & 0x7f);
     putchar(0xf7); /* End SysEx */
 
     return 0;
