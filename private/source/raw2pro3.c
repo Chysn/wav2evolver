@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
      */
     unsigned int pro3_data[PCM_MAX];
     unsigned long int i; /* i is the index within the PCM data */
-    unsigned long int dx = 0; /* dx is the index within the evolver data */    
+    unsigned long int dx = 0; /* dx is the index within the Pro 3 data */    
     uint16_t checksum = 0;
     
 	int k;
